@@ -80,7 +80,7 @@
 @media(max-width:390px){.reviews .review-grid{width:calc(100% + 18px);margin-right:-18px;padding-right:18px}.reviews .review-card{flex-basis:82%}}
 
 /* Preserve the Figma portrait frame and fill it proportionally without stretching the source image. */
-.aging>img{display:block;width:100%;height:auto;aspect-ratio:.84;object-fit:cover;object-position:center}
+.aging>img{display:block;width:100%;height:auto;aspect-ratio:622/682.3423;object-fit:cover;object-position:center}
 @media(max-width:700px){.aging>img{aspect-ratio:.9;max-height:none}}
 
 /* Align the treatment carousel with its heading and supporting copy. */
