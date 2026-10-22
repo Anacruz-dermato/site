@@ -236,3 +236,22 @@ html[data-motion-ready] [data-reveal][data-revealed="true"]{opacity:1;transform:
 .clinic-slide.is-active{box-shadow:none;}
 .clinic-slide img,.clinic-slide.is-active img{transform:none;transition:none;}
 @media(prefers-reduced-motion:reduce){.clinic-slide{transition:none;}}
+
+/* Figma 55:8204 / 55:8258 — one expanded treatment at a time. */
+.treatments .treatment-grid{position:relative;align-items:stretch;scroll-snap-type:x proximity;}
+.treatments .treatment-card{flex:0 0 424px;height:520px;padding:32px;align-items:stretch;text-align:left;cursor:pointer;font:inherit;transition:flex-basis 300ms cubic-bezier(.77,0,.175,1);}
+.treatments .treatment-card.is-expanded{flex-basis:880px;}
+.treatments .treatment-card::after{background:linear-gradient(180deg,transparent 35%,#0009);transition:background-color 280ms ease;}
+.treatments .treatment-card.is-expanded::after{background-color:#000b;}
+.treatments .treatment-info{display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:0;}
+.treatments .is-expanded .treatment-info{justify-content:space-between;}
+.treatments .treatment-info h3{font-size:36px;line-height:1.2;margin:0;}
+main .treatments .treatment-info p{font-size:22px;line-height:1.5;margin:0;color:white;}
+.treatments .is-expanded .treatment-prompt{display:none;}
+.treatments .treatment-description{max-width:816px;}
+.treatments .treatment-image{transition:none;}
+.treatments .treatment-card:hover .treatment-image{transform:none;}
+.treatments .compact h2{color:#7a511c;}
+@media(max-width:1100px){.treatments .treatment-card{flex-basis:340px}.treatments .treatment-card.is-expanded{flex-basis:min(780px,85vw)}.treatments .treatment-info h3{font-size:30px}main .treatments .treatment-info p{font-size:20px}}
+@media(max-width:700px){.treatments .treatment-card{flex:0 0 78vw;height:520px;aspect-ratio:auto;padding:24px}.treatments .treatment-card.is-expanded{flex-basis:calc(100vw - 44px)}.treatments .treatment-info h3{font-size:26px}main .treatments .treatment-info p{font-size:18px}.treatments .treatment-description{overflow-y:auto;max-height:340px}.treatments .treatment-card.is-expanded .treatment-info{gap:24px}}
+@media(prefers-reduced-motion:reduce){.treatments .treatment-card,.treatments .treatment-card::after{transition:none}}
