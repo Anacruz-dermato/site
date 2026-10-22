@@ -142,7 +142,7 @@
 
 /* Figma 32:11963 — natural aging section proportions and image crop. */
 .aging.section{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px;align-items:stretch;padding:80px max(5.5vw,calc((100vw - 1280px)/2));background:#f7f6f5;}
-.aging>img{display:block;width:100%;height:auto;aspect-ratio:622 / 682.3423;object-fit:cover;object-position:center bottom;border-radius:16px;}
+.aging>img{display:block;width:100%;height:auto;aspect-ratio:622 / 682.3423;object-fit:cover;object-position:center top;border-radius:16px;}
 .aging-copy{display:flex;flex-direction:column;justify-content:space-between;align-self:stretch;min-width:0;padding:24px 0;}
 .aging-copy h2{font-size:38px;line-height:1.12;letter-spacing:-.02em;margin:0;}
 .aging-copy h2 span,.aging-copy h2 em{display:block;font-style:normal;}
@@ -150,7 +150,7 @@
 .aging-copy>p:not(.kicker){font-size:24px;line-height:1.5;margin:0;color:var(--muted);}
 .aging-copy>p:not(.kicker)+p:not(.kicker){margin-top:20px;}
 @media(max-width:1000px){.aging.section{gap:28px;padding:72px 5vw}.aging-copy h2{font-size:34px}.aging-copy h2 em{font-size:clamp(38px,5vw,52px)}.aging-copy>p:not(.kicker){font-size:18px;}}
-@media(max-width:700px){.aging.section{grid-template-columns:1fr;gap:28px;padding:68px 22px;background:#eeece8}.aging>img{width:100%;height:auto;aspect-ratio:622 / 682.3423;max-height:none;object-fit:cover;object-position:center bottom}.aging-copy{gap:28px;padding:0}.aging-copy h2{font-size:34px;line-height:1.12}.aging-copy h2 em{font-size:clamp(42px,11vw,54px)}.aging-copy>p:not(.kicker){font-size:16px;line-height:1.6}.aging-copy>p:not(.kicker)+p:not(.kicker){margin-top:0}}
+@media(max-width:700px){.aging.section{grid-template-columns:1fr;gap:28px;padding:68px 22px;background:#eeece8}.aging>img{width:100%;height:auto;aspect-ratio:622 / 682.3423;max-height:none;object-fit:cover;object-position:center top}.aging-copy{gap:28px;padding:0}.aging-copy h2{font-size:34px;line-height:1.12}.aging-copy h2 em{font-size:clamp(42px,11vw,54px)}.aging-copy>p:not(.kicker){font-size:16px;line-height:1.6}.aging-copy>p:not(.kicker)+p:not(.kicker){margin-top:0}}
 .aging-body{display:flex;flex-direction:column;gap:20px;}
 .aging-body>p{font-size:24px;line-height:1.5;color:var(--body-copy);margin:0!important;}
 @media(max-width:700px){.aging-body{gap:16px}.aging-body>p{font-size:16px;line-height:1.55;color:var(--body-copy)}}

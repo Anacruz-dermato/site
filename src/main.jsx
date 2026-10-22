@@ -6,7 +6,7 @@ import './styles.css';
 const asset=(name)=>`${import.meta.env.BASE_URL}assets/${name}`;
 const img={
  hero:'05449bbe-152e-4968-b62f-d59a2baacb2a.png', logo:'28070a34-b7d5-4941-9386-2c7f684d959c.svg', whatsapp:'f8700994-b401-4574-9f1a-426f3271c0db.svg',
- about:'728ccb39-75c3-4aa5-86f3-2780231d6f82.png', nature:'aa20994c-bad4-45ee-a24a-39435ee3abff.png', aging:'aging-routine-figma-v2.jpg',
+ about:'728ccb39-75c3-4aa5-86f3-2780231d6f82.png', nature:'aa20994c-bad4-45ee-a24a-39435ee3abff.png', aging:'aging-portrait-figma.png',
  reviews:'119b6a46-07ae-4d55-8048-1dcb082fbd3c.png', google:'882cdcb4-8f64-48f6-a3b8-62334b836cf5.png', clinic1:'af8db187-0d06-4576-a157-e7b164f69874.png',clinic2:'f572fbb0-feb9-4038-b459-892302340097.png',clinic3:'411369fb-2cd2-491d-a081-e3207b4efee5.png', clinic4:'b881abec-5232-46dd-8384-1d6121532d6c.png', final:'e5acd995-26fc-4131-93f6-6892bcf651ec.png'
 };
 const treatments=[
