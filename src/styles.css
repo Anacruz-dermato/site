@@ -115,7 +115,7 @@
 .treatments .treatment-card::after{content:"";position:absolute;inset:0;z-index:-0;background:linear-gradient(180deg,transparent 48%,rgba(0,0,0,.5) 100%);pointer-events:none;}
 .treatments .treatment-image{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 500ms var(--ease);}
 @media(hover:hover) and (pointer:fine){.treatments .treatment-card:hover .treatment-image{transform:scale(1.035);}}
-.treatments .treatment-info{position:relative;z-index:1;width:100%;min-height:0;padding:12px;color:#fff;}
+.treatments .treatment-info{position:relative;z-index:1;width:100%;min-height:0;padding:40px 12px;color:#fff;}
 .treatments .treatment-info h3{font-size:16px;line-height:1.2;margin:0 0 4px;font-weight:700;}
 .treatments .treatment-info p{font-size:14px;line-height:1.5;margin:0;color:#fff;}
 .treatment-actions{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:56px;}
@@ -131,7 +131,6 @@
  .treatments .section-support>p{font-size:16px;line-height:1.55;}
  .treatments .treatment-grid{width:calc(100% + 44px);margin:0 -22px 24px;padding:0 22px 2px;gap:12px;scroll-padding-inline-start:22px;}
  .treatments .treatment-card{flex:0 0 min(82vw,360px);height:auto;aspect-ratio:3/4;}
- .treatments .treatment-info{padding:12px;}
  .treatments .treatment-info h3{font-size:15px;}
  .treatments .treatment-info p{font-size:13px;line-height:1.45;}
  .treatment-actions{gap:12px;}
