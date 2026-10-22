@@ -88,3 +88,17 @@
 .treatments .treatment-grid{margin:0 0 34px;padding:0 0 8px;scroll-padding-inline-start:0}
 @media(max-width:700px){.treatments .treatment-grid{width:calc(100% + 44px);margin:0 -22px 34px;padding:0 22px 8px;gap:12px;scroll-padding-inline-start:22px}}
 @media(max-width:390px){.treatments .treatment-grid{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px;scroll-padding-inline-start:18px}}
+
+/* Horizontal rail controls use the exact arrow treatment from Figma node 38:12924. */
+.section-support{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:600px;min-width:0}
+.section-support>p{max-width:430px;min-width:0;margin:0 0 2px}
+.reviews .section-support{max-width:600px}
+.scroll-controls{display:flex;align-items:center;gap:12px;flex:none}
+.scroll-control{display:block;width:32px;height:32px;flex:none;border:0;border-radius:50%;padding:0;background:transparent;cursor:pointer;transition:opacity 160ms ease,transform 160ms ease}
+.scroll-control img{display:block;width:32px;height:32px}
+.scroll-control:last-child img{transform:rotate(180deg)}
+.scroll-control:disabled{opacity:.42;cursor:not-allowed}
+.scroll-control:not(:disabled):hover{transform:scale(1.08)}
+.scroll-control:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media(max-width:700px){.section-support{margin-top:16px;gap:12px}.section-support>p{font-size:15px}.reviews .section-support>p{font-size:15px}.reviews-heading .section-support{margin-top:16px}}
+@media(prefers-reduced-motion:reduce){.scroll-control{transition:none}}
