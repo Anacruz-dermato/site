@@ -188,3 +188,7 @@
  .clinic-heading>p,.faq-list details p{font-size:16px;line-height:1.5}
  .treatments .treatment-info p{font-size:14px;line-height:1.45}
 }
+
+/* Final page-wide body-copy scale requested after the Figma review. */
+main .section p:not(.kicker){font-size:20px;line-height:1.5}
+.aging>img{align-self:center}
