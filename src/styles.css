@@ -191,4 +191,7 @@
 
 /* Final page-wide body-copy scale requested after the Figma review. */
 main .section p:not(.kicker){font-size:20px;line-height:1.5}
+main .aging .aging-body>p,
+main .reviews .section-support>p,
+main .treatments .section-support>p{font-size:18px;line-height:1.5}
 .aging>img{align-self:center}
