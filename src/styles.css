@@ -102,3 +102,41 @@
 .scroll-control:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 @media(max-width:700px){.section-support{margin-top:16px;gap:12px}.section-support>p{font-size:15px}.reviews .section-support>p{font-size:15px}.reviews-heading .section-support{margin-top:16px}}
 @media(prefers-reduced-motion:reduce){.scroll-control{transition:none}}
+
+/* Treatments rail: Figma's full-photo cards and bottom navigation row. */
+.treatments.section{padding:80px max(5.5vw,calc((100vw - 1280px)/2));}
+.treatments .section-heading.compact{display:flex;align-items:center;justify-content:space-between;gap:40px;margin:0 0 20px;}
+.treatments .compact h2{max-width:600px;font-size:32px;line-height:1.12;letter-spacing:-.025em;}
+.treatments .section-support{max-width:427px;}
+.treatments .section-support>p{font-size:20px;line-height:1.5;margin:0;color:var(--muted);}
+.treatments .treatment-grid{display:flex;gap:16px;margin:0 0 32px;padding:0 0 2px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;}
+.treatments .treatment-grid::-webkit-scrollbar{display:none;}
+.treatments .treatment-card{position:relative;isolation:isolate;flex:0 0 360px;height:480px;min-height:0;padding:0;display:flex;align-items:flex-end;overflow:hidden;border:1px solid #0000001a;border-radius:12px;background:#d8d1c9;color:#fff;scroll-snap-align:start;}
+.treatments .treatment-card::after{content:"";position:absolute;inset:0;z-index:-0;background:linear-gradient(180deg,transparent 48%,rgba(0,0,0,.5) 100%);pointer-events:none;}
+.treatments .treatment-image{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 500ms var(--ease);}
+@media(hover:hover) and (pointer:fine){.treatments .treatment-card:hover .treatment-image{transform:scale(1.035);}}
+.treatments .treatment-info{position:relative;z-index:1;width:100%;min-height:0;padding:12px;color:#fff;}
+.treatments .treatment-info h3{font-size:16px;line-height:1.2;margin:0 0 4px;font-weight:700;}
+.treatments .treatment-info p{font-size:14px;line-height:1.5;margin:0;color:#fff;}
+.treatment-actions{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:56px;}
+.treatment-actions .button{min-height:56px;padding:16px 24px;}
+.treatments .scroll-controls{gap:12px;}
+.treatments .scroll-control{width:32px;height:32px;}
+@media(max-width:1000px){.treatments .treatment-card{flex-basis:320px;height:450px;}}
+@media(max-width:700px){
+ .treatments.section{padding:68px 22px 72px;}
+ .treatments .section-heading.compact{display:block;margin-bottom:24px;}
+ .treatments .compact h2{max-width:520px;font-size:36px;line-height:1.08;margin:0 0 14px;}
+ .treatments .section-support{max-width:520px;margin:0;}
+ .treatments .section-support>p{font-size:16px;line-height:1.55;}
+ .treatments .treatment-grid{width:calc(100% + 44px);margin:0 -22px 24px;padding:0 22px 2px;gap:12px;scroll-padding-inline-start:22px;}
+ .treatments .treatment-card{flex:0 0 min(82vw,360px);height:auto;aspect-ratio:3/4;}
+ .treatments .treatment-info{padding:12px;}
+ .treatments .treatment-info h3{font-size:15px;}
+ .treatments .treatment-info p{font-size:13px;line-height:1.45;}
+ .treatment-actions{gap:12px;}
+ .treatment-actions .button{flex:1;min-height:52px;padding:12px 14px;font-size:13px;}
+ .treatments .scroll-controls{gap:8px;}
+ .treatments .scroll-control,.treatments .scroll-control img{width:30px;height:30px;}
+}
+@media(max-width:390px){.treatments.section{padding-inline:18px;}.treatments .treatment-grid{width:calc(100% + 36px);margin-inline:-18px;padding-inline:18px;scroll-padding-inline-start:18px}.treatments .treatment-card{flex-basis:84vw}.treatment-actions{gap:8px}.treatment-actions .button{padding-inline:10px;font-size:12px}}
