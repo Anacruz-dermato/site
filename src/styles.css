@@ -152,11 +152,39 @@
 @media(max-width:1000px){.aging.section{gap:28px;padding:72px 5vw}.aging-copy h2{font-size:34px}.aging-copy h2 em{font-size:clamp(38px,5vw,52px)}.aging-copy>p:not(.kicker){font-size:18px;}}
 @media(max-width:700px){.aging.section{grid-template-columns:1fr;gap:28px;padding:68px 22px;background:#eeece8}.aging>img{width:100%;height:auto;aspect-ratio:622 / 682.3423;max-height:none;object-fit:cover;object-position:center bottom}.aging-copy{gap:28px;padding:0}.aging-copy h2{font-size:34px;line-height:1.12}.aging-copy h2 em{font-size:clamp(42px,11vw,54px)}.aging-copy>p:not(.kicker){font-size:16px;line-height:1.6}.aging-copy>p:not(.kicker)+p:not(.kicker){margin-top:0}}
 .aging-body{display:flex;flex-direction:column;gap:20px;}
-.aging-body>p{margin:0!important;}
-@media(max-width:700px){.aging-body{gap:16px;}}
+.aging-body>p{font-size:24px;line-height:1.5;color:var(--body-copy);margin:0!important;}
+@media(max-width:700px){.aging-body{gap:16px}.aging-body>p{font-size:16px;line-height:1.55;color:var(--body-copy)}}
 
 /* Keep testimonial rail navigation on the same baseline as its CTA. */
 .reviews-actions{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:56px;}
 .reviews-actions .button{min-height:56px;}
 @media(max-width:700px){.reviews-actions{gap:12px}.reviews-actions .button{flex:1;min-height:52px;padding:12px 14px;font-size:13px}.reviews-actions .scroll-controls{gap:8px}.reviews-actions .scroll-control,.reviews-actions .scroll-control img{width:30px;height:30px}}
 @media(max-width:390px){.reviews-actions{gap:8px}.reviews-actions .button{padding-inline:10px;font-size:12px}}
+
+/* Figma 31:9502 — consistent supporting-copy scale, color, and rhythm. */
+:root{--body-copy:#3e3e3e}
+.about-copy>p:not(.kicker),
+.philosophy .section-heading>p,
+.principle p,
+.reviews .section-support>p,
+.treatments .section-support>p{font-size:20px;line-height:1.5;color:var(--body-copy)}
+.philosophy .section-heading h2{margin-bottom:12px}
+.principle h3{margin-bottom:8px}
+.aging-copy>p:not(.kicker){font-size:24px;line-height:1.5;color:var(--body-copy)}
+.review-card>p{font-size:16px;line-height:1.5;color:var(--ink)}
+.clinic-heading>p{font-size:16px;line-height:1.5;color:var(--body-copy)}
+.faq-list details p{font-size:16px;line-height:1.5;color:var(--body-copy);margin-top:12px}
+@media(max-width:1000px){
+ .philosophy .section-heading>p,.principle p,.reviews .section-support>p{font-size:18px}
+}
+@media(max-width:700px){
+ .about-copy>p:not(.kicker),
+ .philosophy .section-heading>p,
+ .principle p,
+ .reviews .section-support>p,
+ .treatments .section-support>p,
+ .aging-copy>p:not(.kicker){font-size:16px;line-height:1.55}
+ .reviews .section-support>p{font-size:16px}
+ .clinic-heading>p,.faq-list details p{font-size:16px;line-height:1.5}
+ .treatments .treatment-info p{font-size:14px;line-height:1.45}
+}
