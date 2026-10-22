@@ -205,3 +205,9 @@ main .treatments .treatment-info p{font-size:16px;line-height:1.5}
 main .section p:not(.kicker){font-size:16px;line-height:1.5}
 main .about .about-copy>p:not(.kicker){font-size:16px;line-height:1.5}
 main .reviews .review-user strong{font-size:18px;line-height:1.25}
+
+/* Figma 32:9537 — full image manifesto sized to its 1440×1024 design frame. */
+.image-interlude{display:flex;align-items:flex-end;justify-content:flex-start;width:100%;height:auto;min-height:0;aspect-ratio:1440/1024;padding:clamp(24px,6.67vw,96px) max(18px,5.56vw);background-size:cover;background-position:center;}
+.image-interlude>p{width:min(466px,48vw);margin:0;color:#fff;font-family:var(--serif);font-size:clamp(32px,4.167vw,60px);font-weight:400;line-height:1.12;overflow-wrap:break-word;}
+@media(max-width:700px){.image-interlude{padding:clamp(22px,6vw,36px) 22px}.image-interlude>p{font-size:clamp(32px,8.2vw,42px);width:min(100%,390px)}}
+@media(max-width:390px){.image-interlude{padding-inline:18px}.image-interlude>p{font-size:clamp(30px,8.2vw,32px)}}
