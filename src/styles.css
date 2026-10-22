@@ -93,6 +93,7 @@
 .section-support{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:600px;min-width:0}
 .section-support>p{max-width:430px;min-width:0;margin:0 0 2px}
 .reviews .section-support{max-width:600px}
+@media(min-width:1101px){.reviews-heading{gap:32px}.reviews .section-support{flex:0 1 520px;max-width:520px}.reviews .section-support>p{max-width:520px}}
 .scroll-controls{display:flex;align-items:center;gap:12px;flex:none}
 .scroll-control{display:block;width:32px;height:32px;flex:none;border:0;border-radius:50%;padding:0;background:transparent;cursor:pointer;transition:opacity 160ms ease,transform 160ms ease}
 .scroll-control img{display:block;width:32px;height:32px}
