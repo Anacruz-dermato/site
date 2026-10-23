@@ -551,3 +551,15 @@ main>section.section:not(.image-interlude){padding-top:var(--section-space);padd
 @keyframes dialogIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.cookie-banner,.legal-dialog[open],.legal-dialog::backdrop{animation:none}}
+
+/* Mapa: fundo neutro enquanto o Google Maps carrega */
+.clinic-map{background:#ece8e2}
+
+/* Rodapé no celular: mais altura para a foto respirar e espaço entre a assinatura e a linha legal */
+@media(max-width:700px){
+ .footer{aspect-ratio:auto;min-height:clamp(440px,118vw,600px);padding:28px 22px 28px}
+ .footer-top{align-items:flex-start;gap:16px}
+ .footer .social-link{width:44px;height:44px}
+ .footer-lower{gap:20px}
+}
+@media(max-width:390px){.footer{padding-left:18px;padding-right:18px}}
