@@ -470,3 +470,7 @@ html{scroll-padding-top:110px}
  .nav-active-overlay{inset:0;padding:10px;gap:3px;flex-direction:column;background:#ffffff30}
 }
 @media(prefers-reduced-motion:reduce){.nav-active-overlay{transition:none}.nav-links a{transition:color 120ms ease}}
+
+/* Ritmo vertical único entre seções: ~200px no desktop, 144px no celular */
+:root{--section-space:clamp(72px,6.95vw,100px)}
+main>section.section:not(.image-interlude){padding-top:var(--section-space);padding-bottom:var(--section-space)}
