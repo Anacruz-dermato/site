@@ -79,7 +79,53 @@ function Navigation(){
   </div>
  </nav>;
 }
-function App(){const [activeClinic,setActiveClinic]=useState(1);const [activeTreatment,setActiveTreatment]=useState(0);const treatmentScrollRef=useRef(null);const reviewScrollRef=useRef(null);useLayoutEffect(()=>{const rail=treatmentScrollRef.current;const update=()=>{rail.querySelectorAll('.treatment-info').forEach(info=>{const title=info.querySelector('h3');info.style.setProperty('--title-travel',`${Math.max(0,info.clientHeight-title.offsetHeight-44)}px`)})};const observer=new ResizeObserver(update);rail.querySelectorAll('.treatment-info,.treatment-info h3').forEach(el=>observer.observe(el));update();return()=>observer.disconnect()},[]);useLayoutEffect(()=>{const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduceMotion||!('IntersectionObserver'in window))return;const selectors=['.philosophy .section-heading','.principles .principle','.about .about-art','.about .about-copy','.image-interlude','.treatments .section-heading','.aging>img','.aging-copy','.reviews-heading>*','.reviews .review-card','.clinic-heading>*','.clinic-map','.footer-top','.footer-socials','.footer-wordmark','.footer-bottom'];const targets=[...document.querySelectorAll(selectors.join(','))];if(!targets.length)return;document.documentElement.dataset.motionReady='';const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.dataset.revealed='true';observer.unobserve(entry.target)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});targets.forEach(element=>{element.dataset.reveal='';const group=element.parentElement?.matches('.principles,.treatment-grid,.review-grid,.clinic-accordion');if(group){const index=Array.prototype.indexOf.call(element.parentElement.children,element);element.style.setProperty('--reveal-delay',`${Math.min(index,3)*45}ms`)}observer.observe(element)});return()=>{observer.disconnect();delete document.documentElement.dataset.motionReady}},[]);return <>
+// Avança um depoimento por vez, devagar; qualquer interação pausa e o leitor nunca disputa o controle com a animação.
+function useAutoAdvance(ref,{interval=5200,duration=700,idle=7000}={}){
+ useEffect(()=>{
+  const rail=ref.current;
+  if(!rail||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const section=rail.closest('section');
+  let timer=0,frame=0,visible=false,hovering=false,focused=false,animating=false,resumeAt=0;
+  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const glide=to=>{
+   const from=rail.scrollLeft,start=performance.now();
+   animating=true;rail.style.scrollSnapType='none';
+   const step=now=>{
+    const t=Math.min(1,(now-start)/duration);
+    rail.scrollLeft=from+(to-from)*ease(t);
+    if(t<1)frame=requestAnimationFrame(step);
+    else{animating=false;rail.style.scrollSnapType='';}
+   };
+   frame=requestAnimationFrame(step);
+  };
+  const advance=()=>{
+   const max=rail.scrollWidth-rail.clientWidth;
+   if(max<=0)return;
+   const cards=[...rail.children];
+   const next=cards.map(card=>card.offsetLeft-cards[0].offsetLeft).find(left=>left>rail.scrollLeft+4);
+   glide(rail.scrollLeft>=max-4||next===undefined?0:Math.min(next,max));
+  };
+  const schedule=()=>{
+   clearTimeout(timer);
+   if(!visible||hovering||focused||document.hidden)return;
+   timer=setTimeout(()=>{if(Date.now()<resumeAt)return schedule();advance();schedule();},Math.max(interval,resumeAt-Date.now()));
+  };
+  const interrupt=()=>{cancelAnimationFrame(frame);if(animating){animating=false;rail.style.scrollSnapType='';}resumeAt=Date.now()+idle;schedule();};
+  const onScroll=()=>{if(!animating)interrupt();};
+  const onEnter=event=>{if(event.pointerType==='mouse'){hovering=true;clearTimeout(timer);}};
+  const onLeave=event=>{if(event.pointerType==='mouse'){hovering=false;schedule();}};
+  const onFocus=()=>{focused=!!section.querySelector(':focus-visible');schedule();};const onBlur=()=>setTimeout(onFocus);
+    const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;schedule();},{threshold:.35});
+  observer.observe(rail);
+  rail.addEventListener('scroll',onScroll,{passive:true});
+  rail.addEventListener('pointerenter',onEnter);rail.addEventListener('pointerleave',onLeave);
+  ['pointerdown','wheel','touchstart'].forEach(type=>rail.addEventListener(type,interrupt,{passive:true}));
+  section.addEventListener('click',interrupt);section.addEventListener('focusin',onFocus);section.addEventListener('focusout',onBlur);
+  document.addEventListener('visibilitychange',schedule);
+  return()=>{clearTimeout(timer);cancelAnimationFrame(frame);observer.disconnect();rail.style.scrollSnapType='';rail.removeEventListener('scroll',onScroll);rail.removeEventListener('pointerenter',onEnter);rail.removeEventListener('pointerleave',onLeave);['pointerdown','wheel','touchstart'].forEach(type=>rail.removeEventListener(type,interrupt));section.removeEventListener('click',interrupt);section.removeEventListener('focusin',onFocus);section.removeEventListener('focusout',onBlur);document.removeEventListener('visibilitychange',schedule);};
+ },[ref,interval,duration,idle]);
+}
+function App(){const [activeClinic,setActiveClinic]=useState(1);const [activeTreatment,setActiveTreatment]=useState(0);const treatmentScrollRef=useRef(null);const reviewScrollRef=useRef(null);useAutoAdvance(reviewScrollRef);useLayoutEffect(()=>{const rail=treatmentScrollRef.current;const update=()=>{rail.querySelectorAll('.treatment-info').forEach(info=>{const title=info.querySelector('h3');info.style.setProperty('--title-travel',`${Math.max(0,info.clientHeight-title.offsetHeight-44)}px`)})};const observer=new ResizeObserver(update);rail.querySelectorAll('.treatment-info,.treatment-info h3').forEach(el=>observer.observe(el));update();return()=>observer.disconnect()},[]);useLayoutEffect(()=>{const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduceMotion||!('IntersectionObserver'in window))return;const selectors=['.philosophy .section-heading','.principles .principle','.about .about-art','.about .about-copy','.image-interlude','.treatments .section-heading','.aging>img','.aging-copy','.reviews-heading>*','.reviews .review-card','.clinic-heading>*','.clinic-map','.footer-top','.footer-socials','.footer-wordmark','.footer-bottom'];const targets=[...document.querySelectorAll(selectors.join(','))];if(!targets.length)return;document.documentElement.dataset.motionReady='';const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;entry.target.dataset.revealed='true';observer.unobserve(entry.target)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});targets.forEach(element=>{element.dataset.reveal='';const group=element.parentElement?.matches('.principles,.treatment-grid,.review-grid,.clinic-accordion');if(group){const index=Array.prototype.indexOf.call(element.parentElement.children,element);element.style.setProperty('--reveal-delay',`${Math.min(index,3)*45}ms`)}observer.observe(element)});return()=>{observer.disconnect();delete document.documentElement.dataset.motionReady}},[]);return <>
   <header className="hero" id="inicio">
    <div className="hero-photo" aria-hidden="true" style={{backgroundImage:`url(${asset(img.hero)})`}}/>
    <Navigation/>
