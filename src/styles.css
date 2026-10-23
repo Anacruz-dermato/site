@@ -277,7 +277,7 @@ main .treatments .treatment-info p{font-size:22px;line-height:1.5;margin:0;color
 .treatments .treatment-card::after{background:linear-gradient(180deg,transparent 30%,#0009);}
 .treatments .treatment-card.is-expanded::after{background-color:#000b;}
 @media(min-width:1101px){.treatments .treatment-description{width:816px;}}
-@media(max-width:700px){.treatments .treatment-description{width:calc(100vw - 92px);max-height:340px;}.treatments .treatment-info h3{bottom:40px;}}
+@media(max-width:700px){.treatments .treatment-description{width:calc(100vw - 92px);max-height:max(340px,calc(var(--title-travel,296px) + 20px));}.treatments .treatment-info h3{bottom:40px;}}
 .treatments [data-instant="true"] .treatment-card,.treatments [data-instant="true"] .treatment-info h3,.treatments [data-instant="true"] .treatment-description,.treatments [data-instant="true"] .treatment-prompt,.treatments [data-instant="true"] .treatment-card::after{transition:none;}
 @media(prefers-reduced-motion:reduce){.treatments .treatment-card,.treatments .treatment-description,.treatments .treatment-info h3,.treatments .treatment-prompt{transition:none;transform:none;}}
 .treatments .treatment-info h3{top:0;bottom:auto;transform:translateY(var(--title-travel,300px));}
