@@ -475,11 +475,15 @@ html{scroll-padding-top:110px}
 :root{--section-space:clamp(72px,6.95vw,100px)}
 main>section.section:not(.image-interlude){padding-top:var(--section-space);padding-bottom:var(--section-space)}
 
-/* Cabeçalho dos tratamentos: título e texto em duas linhas, alinhados pela última linha */
-@media(min-width:701px){
+/* Cabeçalhos com texto ao lado: título sempre em uma linha; abaixo de 1101px o texto desce para baixo do título */
+@media(min-width:1101px){
  .treatments .section-heading.compact{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:clamp(32px,4vw,64px);align-items:last baseline}
- .treatments .compact h2{white-space:normal;max-width:none}
- .treatments .compact h2 .heading-line{display:block}
  .treatments .section-support{justify-self:end;width:min(100%,560px);max-width:none}
  .treatments .section-support>p{max-width:none;text-wrap:balance}
+}
+@media(min-width:701px) and (max-width:1100px){
+ .treatments .section-heading.compact,.reviews .reviews-heading,.clinic .clinic-heading{display:block}
+ .treatments .compact h2,.reviews .reviews-heading h2,.clinic .clinic-heading h2{white-space:nowrap;max-width:none;margin:0 0 16px}
+ .treatments .section-support,.reviews .section-support{display:block;width:auto;max-width:560px;margin:0}
+ .treatments .section-support>p,.reviews .section-support>p{max-width:none;text-wrap:balance}
 }
