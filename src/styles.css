@@ -454,7 +454,7 @@ button,a.button,.nav-links a,.social-link,.floating-whatsapp{touch-action:manipu
 
 /* A single moving selection keeps navigation state continuous while scrolling. */
 .nav{position:fixed;z-index:50;top:24px;background:rgba(38,34,30,.65);border:1px solid #ffffff26;transition:background-color 180ms ease,border-color 180ms ease;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
-.nav.is-scrolled{background:rgba(38,34,30,.92);border-color:#ffffff30}
+.nav.is-scrolled{background:rgba(38,34,30,.6);border-color:#ffffff26;backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%)}
 @media(min-width:701px){.nav{width:max-content;max-width:calc(100% - 48px)}}
 .nav-links{position:relative;isolation:isolate}
 .nav-links a,.nav-active-overlay>span{font-weight:500;font-size:16px;line-height:22px;padding:9px 16px;text-align:center;white-space:nowrap;flex:1 0 auto;min-width:0}
