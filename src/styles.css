@@ -477,6 +477,7 @@ main>section.section:not(.image-interlude){padding-top:var(--section-space);padd
 
 /* Cabeçalhos com texto ao lado: título sempre em uma linha; abaixo de 1101px o texto desce para baixo do título */
 @media(min-width:1101px){
+ .philosophy .section-heading h2{white-space:nowrap;font-size:min(48px,3.85vw)}
  .treatments .section-heading.compact{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:clamp(32px,4vw,64px);align-items:last baseline}
  .treatments .section-support{justify-self:end;width:min(100%,560px);max-width:none}
  .treatments .section-support>p{max-width:none;text-wrap:balance}
