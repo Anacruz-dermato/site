@@ -474,3 +474,12 @@ html{scroll-padding-top:110px}
 /* Ritmo vertical único entre seções: ~200px no desktop, 144px no celular */
 :root{--section-space:clamp(72px,6.95vw,100px)}
 main>section.section:not(.image-interlude){padding-top:var(--section-space);padding-bottom:var(--section-space)}
+
+/* Cabeçalho dos tratamentos: título e texto em duas linhas, alinhados pela última linha */
+@media(min-width:701px){
+ .treatments .section-heading.compact{display:grid;grid-template-columns:max-content minmax(0,1fr);column-gap:clamp(32px,4vw,64px);align-items:last baseline}
+ .treatments .compact h2{white-space:normal;max-width:none}
+ .treatments .compact h2 .heading-line{display:block}
+ .treatments .section-support{justify-self:end;width:min(100%,560px);max-width:none}
+ .treatments .section-support>p{max-width:none;text-wrap:balance}
+}
