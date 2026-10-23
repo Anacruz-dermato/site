@@ -501,8 +501,8 @@ main>section.section:not(.image-interlude){padding-top:var(--section-space);padd
 .footer .footer-bottom{flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:nowrap}
 .footer-legal-links{display:flex;align-items:center;gap:8px;flex:none;margin-left:auto;text-align:right}
 .footer .footer-bottom{padding-right:40px}
-.footer-legal-links button{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:#ffffff66;text-underline-offset:3px;transition:text-decoration-color 160ms ease}
-@media(hover:hover) and (pointer:fine){.footer-legal-links button:hover{text-decoration-color:#fff}}
+.footer-legal-links button{padding:0;border:0;background:none;color:inherit;font:inherit;cursor:pointer;text-decoration:none;text-underline-offset:3px}
+@media(hover:hover) and (pointer:fine){.footer-legal-links button:hover{text-decoration:underline}}
 @media(max-width:700px){.footer .footer-bottom{align-items:flex-end;gap:12px;padding-right:68px}.footer-legal-links{flex-direction:column;align-items:flex-end;gap:4px}.footer-legal-links>span{display:none!important}}
 
 /* Banner de cookies: aparece só sem escolha salva */
