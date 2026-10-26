@@ -164,7 +164,7 @@ function CookieConsent(){
    <div className="cookie-actions">
     <button type="button" className="cookie-button cookie-primary" onClick={()=>consentStore.set({necessary:true,analytics:true,maps:true})}>Aceitar todos</button>
     <button type="button" className="cookie-button" onClick={()=>consentStore.set({necessary:true,analytics:false,maps:false})}>Somente essenciais</button>
-    <button type="button" className="cookie-button cookie-ghost" onClick={()=>openLegal('cookies')}>Personalizar</button>
+    <button type="button" className="cookie-button" onClick={()=>openLegal('cookies')}>Personalizar</button>
    </div>
   </section>}
   <LegalDialog name="cookies" title="Preferências de cookies">{close=><>

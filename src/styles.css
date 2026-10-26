@@ -587,3 +587,9 @@ main .about .about-body>p{margin:0;font-size:18px;line-height:1.5;color:#3e3e3e}
 .aging-copy{container-type:inline-size}
 .aging-copy h2 em{white-space:nowrap;font-size:min(62.106px,10.6cqi)}
 .aging-copy h2 span{font-size:min(38px,8cqi)}
+
+/* Banner de cookies: três botões lado a lado */
+.cookie-banner{width:min(480px,calc(100vw - 48px))}
+.cookie-actions{flex-wrap:nowrap}
+.cookie-actions .cookie-button{flex:1 1 auto;padding-inline:14px;white-space:nowrap}
+@media(max-width:700px){.cookie-banner{width:auto}.cookie-actions{gap:6px}.cookie-actions .cookie-button{flex:1 1 0;min-width:0;padding:8px 10px;font-size:13px;white-space:normal}}
