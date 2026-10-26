@@ -569,3 +569,11 @@ main>section.section:not(.image-interlude){padding-top:var(--section-space);padd
 main .about .about-body>p{margin:0;font-size:18px;line-height:1.5;color:#3e3e3e}
 @media(max-width:1100px){main .about .about-body>p{font-size:17px}}
 @media(max-width:700px){.about-body{gap:14px}main .about .about-body>p{font-size:16px;line-height:1.55}}
+
+/* Hero com título mais longo: fonte 8px menor em cada faixa e caixa de texto mais larga no desktop */
+.hero h1{font-size:64px;max-width:720px}
+.hero .hero-content{width:min(720px,90%)}
+@media(max-width:1100px){.hero h1{font-size:clamp(40px,calc(5vw - 8px),64px);max-width:560px}.hero .hero-content{width:min(560px,90%)}}
+@media(max-width:700px){.hero h1{font-size:clamp(32px,calc(10.8vw - 8px),48px);max-width:none}.hero .hero-content{width:calc(100% - 48px)}}
+@media(max-width:390px){.hero .hero-content{width:calc(100% - 40px)}}
+@media(max-height:500px) and (orientation:landscape){.hero h1{font-size:34px}}
