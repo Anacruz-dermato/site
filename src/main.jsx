@@ -127,8 +127,20 @@ function useAutoAdvance(ref,{interval=5200,duration=700,idle=7000}={}){
 }
 // Consentimento de cookies (LGPD): guardado no navegador; sem registro, o banner aparece na primeira visita ou após limpar os dados do site.
 const CONSENT_KEY='dra-ana-cruz-cookies';
-const readConsent=()=>{try{return JSON.parse(localStorage.getItem(CONSENT_KEY))}catch{return null}};
-const consentStore={value:readConsent(),subs:new Set(),set(next){this.value={...next,date:new Date().toISOString(),version:1};try{localStorage.setItem(CONSENT_KEY,JSON.stringify(this.value))}catch{}this.subs.forEach(fn=>fn(this.value));}};
+const CONSENT_VERSION=2;
+const readConsent=()=>{try{const value=JSON.parse(localStorage.getItem(CONSENT_KEY));return value?.version>=CONSENT_VERSION?value:null}catch{return null}};
+const consentStore={value:readConsent(),subs:new Set(),set(next){this.value={...next,date:new Date().toISOString(),version:CONSENT_VERSION};try{localStorage.setItem(CONSENT_KEY,JSON.stringify(this.value))}catch{}this.subs.forEach(fn=>fn(this.value));}};
+// Google Analytics só é baixado depois do consentimento; ao revogar, desliga o envio e apaga os cookies _ga.
+const GA_ID='G-SM16SM0JPN';
+const clearAnalyticsCookies=()=>{const parts=location.hostname.split('.');const domains=['',...parts.slice(0,-1).map((_,i)=>parts.slice(i).join('.'))];document.cookie.split(';').map(c=>c.split('=')[0].trim()).filter(n=>n.startsWith('_ga')).forEach(n=>domains.forEach(d=>{document.cookie=`${n}=; Max-Age=0; path=/${d?`; domain=${d}`:''}`}))};
+const syncAnalytics=consent=>{
+ window[`ga-disable-${GA_ID}`]=!consent?.analytics;
+ if(!consent?.analytics){clearAnalyticsCookies();return}
+ if(window.gtag){window.gtag('config',GA_ID);return}
+ window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments)};window.gtag('js',new Date());window.gtag('config',GA_ID);
+ const script=document.createElement('script');script.async=true;script.src=`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;document.head.appendChild(script);
+};
+syncAnalytics(consentStore.value);consentStore.subs.add(syncAnalytics);
 function useConsent(){const [value,setValue]=useState(consentStore.value);useEffect(()=>{consentStore.subs.add(setValue);return()=>consentStore.subs.delete(setValue)},[]);return value}
 const openLegal=name=>window.dispatchEvent(new CustomEvent('open-legal',{detail:name}));
 function LegalDialog({name,title,children}){
@@ -144,13 +156,14 @@ function LegalDialog({name,title,children}){
 function CookieConsent(){
  const consent=useConsent();
  const [maps,setMaps]=useState(consent?.maps??false);
- useEffect(()=>{setMaps(consent?.maps??false)},[consent]);
+ const [analytics,setAnalytics]=useState(consent?.analytics??false);
+ useEffect(()=>{setMaps(consent?.maps??false);setAnalytics(consent?.analytics??false)},[consent]);
  return <>
   {!consent&&<section className="cookie-banner" role="region" aria-label="Aviso de cookies">
-   <p><strong>Sua privacidade importa.</strong> Usamos cookies necessários para o site funcionar e, com sua permissão, cookies do Google Maps para exibir o mapa do consultório. Saiba mais na <button type="button" className="text-link" onClick={()=>openLegal('privacy')}>Política de Privacidade</button>.</p>
+   <p><strong>Sua privacidade importa.</strong> Usamos cookies necessários para o site funcionar e, com sua permissão, cookies do Google Analytics para entender como o site é usado e do Google Maps para exibir o mapa do consultório. Saiba mais na <button type="button" className="text-link" onClick={()=>openLegal('privacy')}>Política de Privacidade</button>.</p>
    <div className="cookie-actions">
-    <button type="button" className="cookie-button cookie-primary" onClick={()=>consentStore.set({necessary:true,maps:true})}>Aceitar todos</button>
-    <button type="button" className="cookie-button" onClick={()=>consentStore.set({necessary:true,maps:false})}>Somente necessários</button>
+    <button type="button" className="cookie-button cookie-primary" onClick={()=>consentStore.set({necessary:true,analytics:true,maps:true})}>Aceitar todos</button>
+    <button type="button" className="cookie-button" onClick={()=>consentStore.set({necessary:true,analytics:false,maps:false})}>Somente necessários</button>
     <button type="button" className="cookie-button cookie-ghost" onClick={()=>openLegal('cookies')}>Personalizar</button>
    </div>
   </section>}
@@ -158,18 +171,19 @@ function CookieConsent(){
    <div className="legal-body">
     <p>Escolha quais cookies podem ser usados neste site. Você pode mudar sua escolha a qualquer momento pela Política de Privacidade, no rodapé.</p>
     <label className="cookie-option"><span><strong>Necessários</strong>Guardam suas preferências de privacidade e garantem o funcionamento básico do site. Não podem ser desativados.</span><input type="checkbox" checked disabled/></label>
+    <label className="cookie-option"><span><strong>Estatísticas (Google Analytics)</strong>Medem de forma agregada as visitas e as páginas acessadas, para melhorarmos o site. O Google pode definir cookies e coletar dados de navegação conforme a política dele.</span><input type="checkbox" checked={analytics} onChange={event=>setAnalytics(event.target.checked)}/></label>
     <label className="cookie-option"><span><strong>Mapas de terceiros (Google Maps)</strong>Exibem o mapa interativo do consultório. O Google pode definir cookies e coletar dados de navegação conforme a política dele.</span><input type="checkbox" checked={maps} onChange={event=>setMaps(event.target.checked)}/></label>
    </div>
    <div className="legal-actions">
-    <button type="button" className="cookie-button" onClick={()=>{consentStore.set({necessary:true,maps:false});close()}}>Recusar opcionais</button>
-    <button type="button" className="cookie-button cookie-primary" onClick={()=>{consentStore.set({necessary:true,maps});close()}}>Salvar preferências</button>
+    <button type="button" className="cookie-button" onClick={()=>{consentStore.set({necessary:true,analytics:false,maps:false});close()}}>Recusar opcionais</button>
+    <button type="button" className="cookie-button cookie-primary" onClick={()=>{consentStore.set({necessary:true,analytics,maps});close()}}>Salvar preferências</button>
    </div>
   </>}</LegalDialog>
  </>;
 }
 function PrivacyPolicy(){
  return <LegalDialog name="privacy" title="Política de Privacidade">{()=><div className="legal-body">
-  <p className="legal-updated">Última atualização: 23 de outubro de 2026</p>
+  <p className="legal-updated">Última atualização: 26 de outubro de 2026</p>
   <p>Esta Política explica como a Dra. Ana Paula Cruz trata os dados pessoais de quem acessa este site ou entra em contato para agendar uma consulta, em conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 — LGPD).</p>
   <h3>1. Quem é a controladora dos dados</h3>
   <p>Dra. Ana Paula Cruz, médica dermatologista, CRM-SP 169031, com consultório na Rua Bandeira Paulista, 530, 9º andar, Itaim Bibi, São Paulo — SP.</p>
@@ -177,6 +191,7 @@ function PrivacyPolicy(){
   <ul>
    <li><strong>Dados que você nos envia:</strong> nome, telefone e informações que você compartilhar ao entrar em contato pelo WhatsApp para agendamento ou dúvidas.</li>
    <li><strong>Dados de navegação:</strong> endereço IP, tipo de navegador e páginas acessadas, registrados pelo serviço de hospedagem para segurança e funcionamento do site.</li>
+   <li><strong>Dados de uso (somente com consentimento):</strong> páginas visitadas, tempo de navegação, tipo de dispositivo e localização aproximada, coletados pelo Google Analytics de forma agregada para entendermos como o site é usado.</li>
    <li><strong>Cookies e armazenamento local:</strong> conforme descrito na seção 5.</li>
   </ul>
   <p>Este site não possui formulários e não coleta dados de saúde. Informações clínicas são tratadas apenas no atendimento, em prontuário médico, conforme as normas do Conselho Federal de Medicina.</p>
@@ -186,13 +201,15 @@ function PrivacyPolicy(){
    <li>Cumprir obrigações legais e regulatórias, como a guarda de prontuários (art. 7º, II, e art. 11, II, “a”).</li>
    <li>Prestar o atendimento em saúde (art. 11, II, “f”).</li>
    <li>Manter a segurança do site (legítimo interesse — art. 7º, IX).</li>
+   <li>Medir o uso do site e melhorar seu conteúdo, com o Google Analytics (consentimento — art. 7º, I).</li>
    <li>Usar cookies opcionais, somente com o seu consentimento (art. 7º, I).</li>
   </ul>
   <h3>4. Com quem compartilhamos</h3>
-  <p>Não vendemos nem alugamos dados pessoais. Os dados podem ser tratados por fornecedores que nos ajudam a operar o site e o atendimento, como o WhatsApp (Meta), o Google Maps e o serviço de hospedagem do site, além de autoridades públicas quando houver obrigação legal. Alguns desses fornecedores podem armazenar dados fora do Brasil, com as garantias previstas na LGPD.</p>
+  <p>Não vendemos nem alugamos dados pessoais. Os dados podem ser tratados por fornecedores que nos ajudam a operar o site e o atendimento, como o WhatsApp (Meta), o Google Analytics, o Google Maps e o serviço de hospedagem do site, além de autoridades públicas quando houver obrigação legal. Alguns desses fornecedores podem armazenar dados fora do Brasil, com as garantias previstas na LGPD.</p>
   <h3>5. Cookies</h3>
   <ul>
    <li><strong>Necessários:</strong> guardam a sua escolha de cookies no próprio navegador. Não identificam você.</li>
+   <li><strong>Estatísticas:</strong> o Google Analytics só é carregado se você permitir. Ele define cookies próprios (como _ga) para contar visitas de forma agregada. Se você retirar o consentimento, o Analytics deixa de ser carregado e esses cookies são apagados.</li>
    <li><strong>Mapas de terceiros:</strong> o mapa do Google Maps só é carregado se você permitir. Ao carregá-lo, o Google pode definir cookies próprios.</li>
   </ul>
   <p>Você pode alterar sua escolha a qualquer momento em <button type="button" className="text-link" onClick={()=>openLegal('cookies')}>Preferências de cookies</button> ou apagar os cookies nas configurações do seu navegador.</p>
