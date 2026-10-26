@@ -163,18 +163,19 @@ function CookieConsent(){
    <p><strong>Sua privacidade importa.</strong> Usamos cookies para melhorar sua experiência no site. Saiba mais na <button type="button" className="text-link" onClick={()=>openLegal('privacy')}>Política de Privacidade</button>.</p>
    <div className="cookie-actions">
     <button type="button" className="cookie-button cookie-primary" onClick={()=>consentStore.set({necessary:true,analytics:true,maps:true})}>Aceitar todos</button>
-    <button type="button" className="cookie-button" onClick={()=>openLegal('cookies')}>Personalizar</button>
+    <button type="button" className="cookie-button" onClick={()=>consentStore.set({necessary:true,analytics:false,maps:false})}>Somente essenciais</button>
+    <button type="button" className="cookie-button cookie-ghost" onClick={()=>openLegal('cookies')}>Personalizar</button>
    </div>
   </section>}
   <LegalDialog name="cookies" title="Preferências de cookies">{close=><>
    <div className="legal-body">
     <p>Escolha quais cookies podem ser usados neste site. Você pode mudar sua escolha a qualquer momento pela Política de Privacidade, no rodapé.</p>
-    <label className="cookie-option"><span><strong>Necessários</strong>Guardam suas preferências de privacidade e garantem o funcionamento básico do site. Não podem ser desativados.</span><input type="checkbox" checked disabled/></label>
+    <label className="cookie-option"><span><strong>Essenciais</strong>Guardam suas preferências de privacidade e garantem o funcionamento básico do site. Não podem ser desativados.</span><input type="checkbox" checked disabled/></label>
     <label className="cookie-option"><span><strong>Estatísticas (Google Analytics)</strong>Medem de forma agregada as visitas e as páginas acessadas, para melhorarmos o site. O Google pode definir cookies e coletar dados de navegação conforme a política dele.</span><input type="checkbox" checked={analytics} onChange={event=>setAnalytics(event.target.checked)}/></label>
     <label className="cookie-option"><span><strong>Mapas de terceiros (Google Maps)</strong>Exibem o mapa interativo do consultório. O Google pode definir cookies e coletar dados de navegação conforme a política dele.</span><input type="checkbox" checked={maps} onChange={event=>setMaps(event.target.checked)}/></label>
    </div>
    <div className="legal-actions">
-    <button type="button" className="cookie-button" onClick={()=>{consentStore.set({necessary:true,analytics:false,maps:false});close()}}>Recusar opcionais</button>
+    <button type="button" className="cookie-button" onClick={()=>{consentStore.set({necessary:true,analytics:false,maps:false});close()}}>Somente essenciais</button>
     <button type="button" className="cookie-button cookie-primary" onClick={()=>{consentStore.set({necessary:true,analytics,maps});close()}}>Salvar preferências</button>
    </div>
   </>}</LegalDialog>
@@ -207,7 +208,7 @@ function PrivacyPolicy(){
   <p>Não vendemos nem alugamos dados pessoais. Os dados podem ser tratados por fornecedores que nos ajudam a operar o site e o atendimento, como o WhatsApp (Meta), o Google Analytics, o Google Maps e o serviço de hospedagem do site, além de autoridades públicas quando houver obrigação legal. Alguns desses fornecedores podem armazenar dados fora do Brasil, com as garantias previstas na LGPD.</p>
   <h3>5. Cookies</h3>
   <ul>
-   <li><strong>Necessários:</strong> guardam a sua escolha de cookies no próprio navegador. Não identificam você.</li>
+   <li><strong>Essenciais:</strong> guardam a sua escolha de cookies no próprio navegador. Não identificam você.</li>
    <li><strong>Estatísticas:</strong> o Google Analytics só é carregado se você permitir. Ele define cookies próprios (como _ga) para contar visitas de forma agregada. Se você retirar o consentimento, o Analytics deixa de ser carregado e esses cookies são apagados.</li>
    <li><strong>Mapas de terceiros:</strong> o mapa do Google Maps só é carregado se você permitir. Ao carregá-lo, o Google pode definir cookies próprios.</li>
   </ul>
