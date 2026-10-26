@@ -563,3 +563,9 @@ main>section.section:not(.image-interlude){padding-top:var(--section-space);padd
  .footer-lower{gap:20px}
 }
 @media(max-width:390px){.footer{padding-left:18px;padding-right:18px}}
+
+/* Sobre mim: texto em parágrafos */
+.about-body{display:flex;flex-direction:column;gap:16px}
+main .about .about-body>p{margin:0;font-size:18px;line-height:1.5;color:#3e3e3e}
+@media(max-width:1100px){main .about .about-body>p{font-size:17px}}
+@media(max-width:700px){.about-body{gap:14px}main .about .about-body>p{font-size:16px;line-height:1.55}}
